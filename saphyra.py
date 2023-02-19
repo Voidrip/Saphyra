@@ -112,32 +112,33 @@ class Saphyra(object):
         except (Exception):
             pass # silently ignore
 
-    def monitor(self):
-        while len(self.workersQueue) > 0:
-            try:
-                for worker in self.workersQueue:
-                    if worker is not None and worker.is_alive():
-                        worker.join(JOIN_TIMEOUT)
-                    else:
-                        self.workersQueue.remove(worker)
-
-                self.stats()
-
-           except (KeyboardInterrupt, SystemExit):
-    print("CTRL+C received. Killing all workers")
-    for worker in self.workersQueue:
+ def monitor(self):
+    while len(self.workersQueue) > 0:
         try:
-            if DEBUG:
-                print("Killing worker {}".format(worker.name))
-            #worker.terminate()
-            worker.stop()
-        except Exception as ex:
-            pass # silently ignore
-
-                if DEBUG:
-                    raise
+            for worker in self.workersQueue:
+                if worker is not None and worker.is_alive():
+                    worker.join(JOIN_TIMEOUT)
                 else:
-                    pass
+                    self.workersQueue.remove(worker)
+
+            self.stats()
+
+        except (KeyboardInterrupt, SystemExit):
+            print("CTRL+C received. Killing all workers")
+            for worker in self.workersQueue:
+                try:
+                    if DEBUG:
+                        print("Killing worker {}".format(worker.name))
+                    #worker.terminate()
+                    worker.stop()
+                except Exception as ex:
+                    pass # silently ignore
+
+                    if DEBUG:
+                        raise
+                    else:
+                        pass
+
 
 ####
 # Striker Class

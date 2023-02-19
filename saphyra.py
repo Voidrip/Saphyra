@@ -1,3 +1,33 @@
+Skip to content
+Search or jump to
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@Voidrip 
+laorynas
+/
+Saphyra
+Public
+Fork your own copy of laorynas/Saphyra
+Code
+Pull requests
+1
+Actions
+Projects
+Wiki
+Security
+Insights
+Saphyra/saphyra.py /
+
+Eitenne Add files via upload
+Latest commit cff5780 on Jun 27, 2017
+ History
+ 0 contributors
+567 lines (405 sloc)  15 KB
+
 #!/usr/bin/env python
 
 from multiprocessing import Process, Manager, Pool
@@ -61,7 +91,7 @@ class Saphyra(object):
 
     def exit(self):
         self.stats()
-        print "Shutting down Saphyra"
+        print ("Shutting down Saphyra")
 
     def __del__(self):
         self.exit()
@@ -75,10 +105,10 @@ class Saphyra(object):
     def fire(self):
 
         self.printHeader()
-        print "MODE: '{0}' - WORKERS: {1}  - CONNECTIONS: {2} ".format(self.method, self.nr_workers, self.nr_sockets)
+        print ("MODE: '{0}' - WORKERS: {1}  - CONNECTIONS: {2} ").format(self.method, self.nr_workers, self.nr_sockets)
 
         if DEBUG:
-            print "Starting {0} concurrent workers".format(self.nr_workers)
+            print ("Starting {0} concurrent workers").format(self.nr_workers)
 
         # Start workers
         for i in range(int(self.nr_workers)):
@@ -96,7 +126,7 @@ class Saphyra(object):
                 pass 
 
         if DEBUG:
-            print "Initiating monitor"
+            print ("Initiating monitor")
         self.monitor()
 
     def stats(self):
@@ -104,10 +134,10 @@ class Saphyra(object):
         try:
             if self.counter[0] > 0 or self.counter[1] > 0:
 
-                print "{0} Saphyra strikes deferred. ({1} Failed)".format(self.counter[0], self.counter[1])
+                print ("{0} Saphyra strikes deferred. ({1} Failed)").format(self.counter[0], self.counter[1])
 
                 if self.counter[0] > 0 and self.counter[1] > 0 and self.last_counter[0] == self.counter[0] and self.counter[1] > self.last_counter[1]:
-                    print "\tServer may be DOWN!"
+                    print ("\tServer may be DOWN!")
     
                 self.last_counter[0] = self.counter[0]
                 self.last_counter[1] = self.counter[1]
@@ -126,11 +156,11 @@ class Saphyra(object):
                 self.stats()
 
             except (KeyboardInterrupt, SystemExit):
-                print "CTRL+C received. Killing all workers"
+                print ("CTRL+C received. Killing all workers")
                 for worker in self.workersQueue:
                     try:
                         if DEBUG:
-                            print "Killing worker {0}".format(worker.name)
+                            print ("Killing worker {0}").format(worker.name)
                         #worker.terminate()
                         worker.stop()
                     except Exception, ex:
@@ -260,7 +290,7 @@ class Striker(Process):
                     pass # silently ignore
 
         if DEBUG:
-            print "Worker {0} completed run. Sleeping...".format(self.name)
+            print ("Worker {0} completed run. Sleeping...").format(self.name)
             
     def closeConnections(self):
         for conn in self.socks:
@@ -446,7 +476,6 @@ def usage():
 	print "\a"
 print \
 """
-
                                 ,-.
                                ( O_)
                               / `-/
@@ -565,3 +594,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+Footer
+ 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Saphyra/saphyra.py at master  laorynas/Saphyra

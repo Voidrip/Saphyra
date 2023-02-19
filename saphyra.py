@@ -1,4 +1,4 @@
-Skip to content
+Skip content
 Search or jump to
 Pull requests
 Issues

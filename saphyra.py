@@ -123,16 +123,17 @@ class Saphyra(object):
 
                 self.stats()
 
-            except (KeyboardInterrupt, SystemExit):
-                print ("CTRL+C received. Killing all workers")
-                for worker in self.workersQueue:
-                    try:
-                        if DEBUG:
-                            print ("Killing worker {0}").format(worker.name)
-                        #worker.terminate()
-                        worker.stop()
-                    except Exception, ex:
-                        pass # silently ignore
+           except (KeyboardInterrupt, SystemExit):
+    print("CTRL+C received. Killing all workers")
+    for worker in self.workersQueue:
+        try:
+            if DEBUG:
+                print("Killing worker {}".format(worker.name))
+            #worker.terminate()
+            worker.stop()
+        except Exception as ex:
+            pass # silently ignore
+
                 if DEBUG:
                     raise
                 else:
